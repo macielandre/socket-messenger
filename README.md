@@ -1,3 +1,3 @@
 Flow
 
-[!Flow Image](images/flow.jpg)
+[!Flow Image](images/flow.jpg?raw=true)
