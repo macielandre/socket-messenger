@@ -1,34 +1,30 @@
 const net = require('net')
 const NodeCache = require('node-cache')
+const AppController = require('./src/controllers/app-controller')
 
-//TODO: create an environment file
-const port = 80
-const host = 'localhost'
-const secretToken = '12345'
+require('dotenv').config()
+
+const { PORT = 80, HOST = 'localhost', SECRET_TOKEN } = process.env
 
 const server = net.createServer()
 const cache = new NodeCache()
 
-server.listen(port, host, () => {
-  console.log(`Server listening on port ${port}`)
+server.listen(PORT, HOST, () => {
+  console.log(`Server listening on port ${PORT}`)
 })
 
 server.on('connection', socket => {
-  socket.on('data', buffer => {
+  socket.on('data', async buffer => {
     const connectionData = JSON.parse(buffer.toString())
 
-    if(connectionData.secretToken !== secretToken) {
+    
+    if(connectionData.secretToken !== SECRET_TOKEN) {
       socket.end()
-
+      
       return
     }
-
-    //TODO: receive message content, save in database and update message history
-
-    const updatedMessageHistory = 'mocked'
-
-    console.log(connectionData.messageInfo)
-
+    
+    const updatedMessageHistory = await AppController.onData(connectionData.messageInfo)
     const responseBuffer = Buffer.from(JSON.stringify({ messages: updatedMessageHistory}))
 
     socket.write(responseBuffer)
