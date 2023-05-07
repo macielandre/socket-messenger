@@ -1,10 +1,17 @@
 import { useState } from 'react'
-import { View, StyleSheet, TextInput, Text, Button, TouchableOpacity } from 'react-native'
+import { View, TextInput, Text, TouchableOpacity, Button } from 'react-native'
 import styles from './styles'
 
 
 const onLogin = (email, password) => {
-    console.warn(email, password)
+    if(email === '') {
+      console.warn('Email is empty')
+    } else if(password === '') {
+      console.warn('Password is empty')
+    }
+     else {
+      console.warn(email, password)
+    }
 }
 
 const Login = ({navigation}) => {
@@ -43,9 +50,8 @@ const Login = ({navigation}) => {
           <TouchableOpacity style={styles.loginButton} onPress={() => { onLogin(email, password) }}>
             <Text style={styles.submitText}>LOGIN</Text>
           </TouchableOpacity>          
-          <TouchableOpacity style={styles.registerButton} onPress={() => { navigation.navigate('Register') }}>
-            <Text style={styles.submitText}>REGISTER</Text>
-          </TouchableOpacity>
+          <Button title="Register if doens't have an account" onPress={() => navigation.navigate('Register')} />
+
         </View>
         )
 }

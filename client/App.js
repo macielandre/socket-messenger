@@ -1,9 +1,10 @@
 import React from 'react'
 import { Login } from './src/pages/login'
 import { Register } from './src/pages/register'
+import { Menu } from './src/pages/menu'
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator();
 
@@ -12,11 +13,17 @@ const App = () => {
       <NavigationContainer>
       <Stack.Navigator initalRouteName={'Login'}>
         <Stack.Screen
+          name="Menu"
+          component={Menu}
+        />
+        <Stack.Screen
           name="Login"
           component={Login}
-          options={{title: 'Login to your account'}}
         />
-        <Stack.Screen name="Register" component={Register}/>
+        <Stack.Screen 
+          name="Register" 
+          component={Register}
+        />
       </Stack.Navigator>
     </NavigationContainer>
     )
